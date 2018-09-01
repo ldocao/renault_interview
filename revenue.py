@@ -12,6 +12,7 @@ class Revenue:
         self._remove_specific_dates()
         self._replace_date()
         self._translate_to_english()
+        self._remove_unknown_car_model()
         return self.data
 
     def _remove_specific_dates(self):
@@ -33,3 +34,7 @@ class Revenue:
                              "bleu": "blue",
                              "vert": "green"}
         self.data = self.data.replace(FRENCH_TO_ENGLISH)
+
+    def _remove_unknown_car_model(self):
+        is_unknown = self.data["Model"] == "Talisman"
+        self.data = self.data[~is_unknown]
