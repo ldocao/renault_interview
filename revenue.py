@@ -13,6 +13,7 @@ class Revenue:
         self._replace_date()
         self._translate_to_english()
         self._remove_unknown_car_model()
+        self._remove_age_outlier()
         return self.data
 
     def _remove_specific_dates(self):
@@ -38,3 +39,10 @@ class Revenue:
     def _remove_unknown_car_model(self):
         is_unknown = self.data["Model"] == "Talisman"
         self.data = self.data[~is_unknown]
+
+    def _remove_age_outlier(self):
+        MINIMAL_AGE = 18
+        MAXIMAL_AGE = 80
+        is_acceptable = self.data["Age"].between(MINIMAL_AGE, MAXIMAL_AGE, inclusive=True)
+        self.data = self.data[is_acceptable]
+        
