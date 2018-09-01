@@ -5,6 +5,8 @@ import seaborn as sns
 from revenue import Revenue
 
 revenue = Revenue().clean()
+is_average = revenue["Incomes"] < 50e3
+revenue = revenue[is_average]
 is_couple = revenue["Sex"] == "Couple"
 couple_revenue = revenue[is_couple]
 non_couple_revenue = revenue[~is_couple]
@@ -12,7 +14,7 @@ print(couple_revenue.describe())
 print(non_couple_revenue.describe())
 
 
-PLOT_OPTIONS = {"bins": np.arange(30e3, 200e3, 2e3),
+PLOT_OPTIONS = {"bins": np.arange(30e3, 50e3, 2e3),
                 "alpha": 0.3,
                 "normed": 1} #area should sum to 1
 plt.figure()
