@@ -11,6 +11,7 @@ class Revenue:
     def clean(self):
         self._remove_specific_dates()
         self._replace_date()
+        self._translate_to_english()
         return self.data
 
     def _remove_specific_dates(self):
@@ -23,3 +24,12 @@ class Revenue:
         self.data = self.data.rename(columns={"Date": "is_weekend"}) #inplace will be deprecated in pandas 1.0
         self.data = self.data.replace({"week": False, "weekend": True})
         
+
+    def _translate_to_english(self):
+        """Replace French words to English to uniformize data"""
+        FRENCH_TO_ENGLISH = {"noir": "black",
+                             "jaune": "yellow",
+                             "rouge": "red",
+                             "bleu": "blue",
+                             "vert": "green"}
+        self.data = self.data.replace(FRENCH_TO_ENGLISH)
