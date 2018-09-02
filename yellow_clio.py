@@ -1,4 +1,4 @@
-#PURPOSE: answer question 2
+#PURPOSE: answer question 3
 
 from revenue import Revenue
 import matplotlib.pyplot as plt
